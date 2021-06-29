@@ -1,0 +1,6 @@
+query getKaryawan {
+  karyawan {
+    _id
+    blogDescription
+  }
+}
