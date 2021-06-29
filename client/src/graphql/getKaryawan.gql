@@ -1,6 +1,5 @@
-query getKaryawan {
-  karyawan {
-    _id
-    blogDescription
+query getAllKaryawan {
+  getAllKaryawan {
+    id
   }
 }
