@@ -15,8 +15,8 @@
         <form @submit.prevent="edit">
           <div class="shadow sm:rounded-md">
             <div class="px-4 py-5 bg-gray-100 sm:p-6">
-              <div class="grid grid-cols-8 gap-6">
-                <div class="col-span-6 sm:col-span-4">
+              <div class="grid grid-cols-4 gap-6">
+                <div class="mt-1 col-span-6 sm:col-span-3">
                   <label
                     for="first_name"
                     class="block text-sm font-medium text-gray-700"
@@ -30,30 +30,7 @@
                       focus:border-indigo-500
                       block
                       w-full
-                      h-4/5
-                      shadow-sm
-                      sm:text-sm
-                      border-gray-300
-                      rounded-md
-                    "
-                  />
-                </div>
-
-                <div class="col-span-6 sm:col-span-4">
-                  <label
-                    for="email_address"
-                    class="block text-sm font-medium text-gray-700"
-                    >Email address</label
-                  >
-                  <input
-                    type="email"
-                    class="
-                      mt-1
-                      focus:ring-indigo-500
-                      focus:border-indigo-500
-                      block
-                      w-full
-                      h-4/5
+                      h-3/4
                       shadow-sm
                       sm:text-sm
                       border-gray-300

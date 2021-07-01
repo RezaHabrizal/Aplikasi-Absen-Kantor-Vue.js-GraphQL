@@ -1,5 +1,0 @@
-query getAllKaryawan {
-  getAllKaryawan {
-    id
-  }
-}
