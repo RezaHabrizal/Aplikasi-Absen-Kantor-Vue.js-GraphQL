@@ -9,14 +9,22 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    timestamp: ""
+    timestamp: "",
+    status: "",
+    email: ""
   },
   mutations: {
     setTimeStamp (state, payload) {
       let date = new Date(JSON.parse(payload.updatedAt))
       let hours = date.getHours()
       let minute = date.getMinutes()
-      state.timestamp = `${hours} : ${minute}`
+      state.timestamp = {...payload, updatedAt: `${hours} : ${minute}`}
+    },
+    setStatus (state, payload) {
+      state.status = payload
+    },
+    setEmail (state, payload) {
+      state.email = payload
     }
   }
 })

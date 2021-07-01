@@ -2,7 +2,7 @@
   <div class="container text-center mx-auto p-4">
     <div class="flex justify-center rounded-lg text-lg" role="group">
       <button
-        v-if="!status || status === 'Selesai Kerja'"
+        v-if="!status || status === 'Selesai Kerja' || status === 'Belum Kerja'"
         class="
           mr-2
           bg-white
@@ -107,6 +107,8 @@ export default {
     selesaiKerja() {
       this.status = "Selesai Kerja";
       this.update();
+      localStorage.removeItem("user");
+      this.$router.push("/login");
     },
     istirahat() {
       this.status = "Istirahat";
@@ -126,6 +128,7 @@ export default {
                 name
                 email
                 status
+                divisi
                 updatedAt
               }
             }
@@ -138,9 +141,8 @@ export default {
         })
         .then(({ data }) => {
           // Result
+          this.$store.commit("setStatus", data.updateStatus);
           this.$store.commit("setTimeStamp", data.updateStatus);
-          localStorage.setItem("user", JSON.stringify(data.updateStatus));
-          console.log(data);
         })
         .catch((error) => {
           // Error

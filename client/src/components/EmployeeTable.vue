@@ -9,7 +9,10 @@
             alt=""
           />
         </div>
-        <div class="ml-4">
+        <div
+          class="ml-4 cursor-pointer"
+          @click="seeDetail(person.email, person.name, person.divisi)"
+        >
           <div class="text-sm font-medium text-gray-900">
             {{ person.name }}
           </div>
@@ -38,13 +41,31 @@
           text-green-800
         "
       >
-        {{ person.status ? person.status : "null" }}
+        {{ status.email === person.email ? status.status : person.status }}
       </span>
     </td>
-    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-      <h6 class="text-indigo-600 hover:text-indigo-900">
-        {{ timestamp }}
-      </h6>
+    <td class="px-6 py-4 whitespace-nowrap">
+      <span
+        v-if="
+          status.status === 'Kerja' ||
+          status.status === 'Istirahat' ||
+          status.status === 'Lanjut Kerja' ||
+          status.status === 'Mulai Kerja'
+        "
+        class="
+          px-2
+          inline-flex
+          text-xs
+          leading-5
+          font-semibold
+          rounded-full
+          bg-green-100
+          text-green-800
+        "
+        >{{
+          timestamp.email === person.email ? timestamp.updatedAt : getTime
+        }}</span
+      >
     </td>
   </tr>
 </template>
@@ -58,7 +79,24 @@ export default {
   computed: {
     ...mapState({
       timestamp: "timestamp",
+      status: "status",
     }),
+    getTime() {
+      let date = new Date(JSON.parse(this.person.updatedAt));
+      let hours = date.getHours();
+      let minute = date.getMinutes();
+      return `${hours} : ${minute}`;
+    },
+  },
+  methods: {
+    seeDetail(email, name, divisi) {
+      this.$store.commit("setEmail", email);
+      this.$router.push({
+        name: "Detail",
+        params: { email, name, divisi },
+        props: true,
+      });
+    },
   },
 };
 </script>

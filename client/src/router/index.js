@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import Edit from '../views/Edit.vue'
 import Login from '@/views/Login.vue'
+import EmployeeDetail from '@/views/EmployeeDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import(/* webpackChunkName: "group-foo" */ '../views/Home.vue')
   },
   {
     path: '/edit',
@@ -21,6 +21,14 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: EmployeeDetail,
+    props: {
+      default: true
+    }
   }
 ]
 

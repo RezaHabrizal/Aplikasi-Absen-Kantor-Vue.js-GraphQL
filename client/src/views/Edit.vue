@@ -118,9 +118,22 @@ export default {
         .mutate({
           // Query
           mutation: gql`
-            mutation ($email: String, $name: String, $divisi: String) {
-              updateProfile(email: $email, name: $name, divisi: $divisi) {
+            mutation (
+              $email: String
+              $name: String
+              $divisi: String
+              $status: String
+            ) {
+              updateProfile(
+                email: $email
+                name: $name
+                divisi: $divisi
+                status: $status
+              ) {
                 name
+                email
+                status
+                divisi
               }
             }
           `,
@@ -129,11 +142,12 @@ export default {
             email: this.email,
             name: this.name,
             divisi: this.divisi,
+            status: "Belum Kerja",
           },
         })
         .then(({ data }) => {
           // Result
-          console.log(data);
+          localStorage.setItem("user", JSON.stringify(data.updateProfile));
           this.$router.push("/");
         })
         .catch((error) => {
@@ -144,8 +158,7 @@ export default {
   },
   created() {
     const user = JSON.parse(localStorage.getItem("user"));
-    const email = user.email;
-    this.email = email;
+    this.email = user.email;
   },
 };
 </script>
