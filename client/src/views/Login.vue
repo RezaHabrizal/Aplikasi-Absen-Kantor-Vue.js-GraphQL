@@ -112,6 +112,8 @@ export default {
               findOneOrCreate(email: $email, password: $password) {
                 name
                 email
+                status
+                divisi
               }
             }
           `,
@@ -121,10 +123,15 @@ export default {
             password: this.inputLogin.password,
           },
         })
-        .then((data) => {
+        .then(({ data }) => {
           // Result
-          console.log(data);
-          this.$router.push("/");
+          localStorage.setItem("user", JSON.stringify(data.findOneOrCreate));
+          if (!data.findOneOrCreate.name) {
+            this.$router.push("/edit");
+          } else {
+            this.$router.push("/");
+          }
+          // this.$router.push("/");
         })
         .catch((error) => {
           // Error

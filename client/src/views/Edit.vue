@@ -23,6 +23,7 @@
                     >Full name</label
                   >
                   <input
+                    v-model="name"
                     type="text"
                     class="
                       mt-1
@@ -46,6 +47,7 @@
                     >Division</label
                   >
                   <select
+                    v-model="divisi"
                     class="
                       mt-1
                       block
@@ -100,11 +102,50 @@
 </template>
 
 <script>
+import gql from "graphql-tag";
+
 export default {
+  data() {
+    return {
+      email: "",
+      name: "",
+      divisi: "",
+    };
+  },
   methods: {
     edit() {
-      console.log("ok");
+      this.$apollo
+        .mutate({
+          // Query
+          mutation: gql`
+            mutation ($email: String, $name: String, $divisi: String) {
+              updateProfile(email: $email, name: $name, divisi: $divisi) {
+                name
+              }
+            }
+          `,
+          // Parameters
+          variables: {
+            email: this.email,
+            name: this.name,
+            divisi: this.divisi,
+          },
+        })
+        .then(({ data }) => {
+          // Result
+          console.log(data);
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          // Error
+          console.error(error);
+        });
     },
+  },
+  created() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const email = user.email;
+    this.email = email;
   },
 };
 </script>
