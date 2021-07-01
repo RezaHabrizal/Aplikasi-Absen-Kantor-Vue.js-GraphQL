@@ -126,6 +126,7 @@ export default {
                 name
                 email
                 status
+                updatedAt
               }
             }
           `,
@@ -137,6 +138,7 @@ export default {
         })
         .then(({ data }) => {
           // Result
+          this.$store.commit("setTimeStamp", data.updateStatus);
           localStorage.setItem("user", JSON.stringify(data.updateStatus));
           console.log(data);
         })

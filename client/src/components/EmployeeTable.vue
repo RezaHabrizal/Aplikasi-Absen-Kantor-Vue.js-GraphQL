@@ -42,26 +42,23 @@
       </span>
     </td>
     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-      <h6
-        @click="goEdit"
-        class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
-      >
-        Edit
+      <h6 class="text-indigo-600 hover:text-indigo-900">
+        {{ timestamp }}
       </h6>
     </td>
   </tr>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "HelloWorld",
   props: {
     person: Object,
   },
-  methods: {
-    goEdit() {
-      this.$router.push("/edit");
-    },
+  computed: {
+    ...mapState({
+      timestamp: "timestamp",
+    }),
   },
 };
 </script>
