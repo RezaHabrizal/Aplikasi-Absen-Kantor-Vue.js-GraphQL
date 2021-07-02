@@ -129,9 +129,10 @@ export default {
           if (!data.findOneOrCreate.name) {
             this.$router.push("/edit");
           } else {
-            this.$router.push("/");
+            this.$nextTick(() => {
+              this.$router.push("/");
+            });
           }
-          // this.$router.push("/");
         })
         .catch((error) => {
           // Error

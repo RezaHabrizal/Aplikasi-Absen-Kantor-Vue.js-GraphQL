@@ -109,7 +109,6 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
 import EmployeeTable from "../components/EmployeeTable.vue";
 import ActionButton from "@/components/ActionButton.vue";
 
@@ -117,49 +116,23 @@ export default {
   data() {
     return {
       filter: "",
-      getAllKaryawan: [],
     };
   },
+
   components: {
     EmployeeTable,
     ActionButton,
   },
 
-  created() {
-    this.$apollo
-      .query({
-        // Query
-        query: gql`
-          query {
-            getAllKaryawan {
-              id
-              name
-              email
-              divisi
-              status
-              updatedAt
-            }
-          }
-        `,
-      })
-      .then(({ data }) => {
-        // Result
-        this.getAllKaryawan = data.getAllKaryawan;
-      })
-      .catch((error) => {
-        // Error
-        console.error(error);
-      });
-  },
-
   computed: {
     filtered() {
-      return this.getAllKaryawan.filter((el) => {
-        const name = el.name.toLowerCase();
+      let data = this.$store.state.data;
+      return data.filter((el) => {
+        const name = el.name && el.name.toLowerCase();
         const status = el.status && el.status.toLowerCase();
-        const searchTerm = this.filter.toLowerCase();
+        const searchTerm = this.filter && this.filter.toLowerCase();
 
-        return name.includes(searchTerm) || status.includes(searchTerm);
+        return name?.includes(searchTerm) || status?.includes(searchTerm);
       });
     },
   },

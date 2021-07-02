@@ -103,6 +103,7 @@
 
 <script>
 import gql from "graphql-tag";
+import { onLogin } from "../vue-apollo";
 
 export default {
   data() {
@@ -148,7 +149,11 @@ export default {
         .then(({ data }) => {
           // Result
           localStorage.setItem("user", JSON.stringify(data.updateProfile));
-          this.$router.push("/");
+          onLogin(this.$apollo, "2193i84sdw");
+          this.$store.commit("updateData", data.updateProfile);
+          this.$nextTick(() => {
+            this.$router.push("/");
+          });
         })
         .catch((error) => {
           // Error

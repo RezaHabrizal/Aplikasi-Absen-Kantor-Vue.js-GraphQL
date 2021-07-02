@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    data: [],
     timestamp: "",
     status: "",
     email: ""
@@ -25,12 +26,17 @@ const store = new Vuex.Store({
     },
     setEmail (state, payload) {
       state.email = payload
+    },
+    setData (state, payload) {
+      state.data = payload
+    },
+    updateData (state, payload) {
+      state.data = state.data.concat(payload)
     }
   }
 })
 
 Vue.config.productionTip = false
-
 new Vue({
   apolloProvider: createProvider(),
   router,
